@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MMR Nidjae Puzzle</title>
+    <link rel="icon" href="https://musim-mekarnya-rasa-fanzine.netlify.app/logo.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Level selection -->
+        <div class="logo"><img src="logo.png" alt=""></div>
+
+        <div id="levelScreen" class="level-screen">
+            <div class="level-header">
+                <h1>Sliding Puzzle</h1>
+            </div>
+            <p>Choose difficulty</p>
+            <div class="level-buttons">
+                <button type="button" data-level="easy" class="level-btn">
+                    <span class="level-name">Easy</span>
+                    <span class="level-desc">3×3 grid · 8 tiles</span>
+                </button>
+                <button type="button" data-level="medium" class="level-btn">
+                    <span class="level-name">Medium</span>
+                    <span class="level-desc">4×4 grid · 15 tiles</span>
+                </button>
+                <button type="button" data-level="hard" class="level-btn">
+                    <span class="level-name">Hard</span>
+                    <span class="level-desc">5×5 grid · 24 tiles</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game screen -->
+        <div id="gameScreen" class="game-screen hidden">
+            <header class="header">
+                <h1>Sliding Puzzle</h1>
+                <span class="level-badge" id="levelBadge">Easy</span>
+                <div class="logo" aria-hidden="true">
+                    <img src="logo.png" alt="">
+                </div>
+                <div class="header-actions">
+                    <span class="moves" id="moves">Moves: 0</span>
+                    <button type="button" id="changeLevelBtn" class="btn btn-ghost">Level</button>
+                    <button type="button" id="newGameBtn" class="btn">New Game</button>
+                </div>
+            </header>
+
+            <main class="game-container">
+                <div id="board" class="board" role="grid" aria-label="Sliding puzzle board"></div>
+            </main>
+
+            <!-- Win overlay -->
+            <div id="winOverlay" class="win-overlay hidden">
+                <div class="win-box">
+                    <h2>You solved it!</h2>
+                    <p id="winMoves">Moves: 0</p>
+                    <div class="win-actions">
+                        <button type="button" id="playAgainBtn" class="btn btn-large">Play Again</button>
+                        <button type="button" id="changeLevelFromWinBtn" class="btn btn-ghost">Change Level</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

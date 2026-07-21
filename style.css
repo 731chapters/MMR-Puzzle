@@ -1,0 +1,405 @@
+/* ===== Sliding Puzzle - Mobile responsive ===== */
+:root {
+    --warm-white: #FDFAF4;
+    --isabeline: #f2d8e2;
+    --parchment: #e8d6ca;
+    --brown: #4A3728;
+    --brown-mid: #7A5C48;
+    --brown-light: #B09080;
+    --sage: #7e8560;
+    --sage-light: #A8B894;
+    --sage-bg: #E8EBDC;
+    --mauve: #C28B96;
+    --mauve-light: #E8C4CC;
+    --mauve-bg: #FAEFF1;
+    --text: #3A2C20;
+    --muted: #9A8070;
+    --tile-gap: 4px;
+    --tile-radius: 6px;
+    --board-bg: var(--parchment);
+    --tile-bg: var(--warm-white);
+    --tile-border: var(--brown-light);
+    --tile-text: var(--text);
+    --accent: var(--mauve);
+    --empty-bg: rgba(176, 144, 128, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'EB Garamond', serif;
+    background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejgxanU3M2Z4NHU4a2ZjeWJoMzRzODFkb2FzanhiZTFlaGhkY3Q3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xThtawJ5higNRr1pq8/giphy.gif') center/cover no-repeat fixed,
+        linear-gradient(180deg, var(--isabeline) 0%, var(--isabeline) 38%, transparent 75%);
+    background-blend-mode: overlay;
+    min-height: 100vh;
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 12px 6px;
+    /* reduce top padding */
+}
+
+.logo img {
+    padding-top: 8px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+    height: 88px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* hide the top-level wrapper logo while inside the game screen */
+.in-game .wrapper>.logo {
+    display: none !important;
+}
+
+/* ===== Level screen ===== */
+.level-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.level-screen h1 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin: 0 0 8px;
+    font-weight: 700;
+}
+
+.level-screen>p {
+    margin: 0 0 24px;
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.level-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.level-btn {
+    padding: 10px 18px;
+    border: 2px solid var(--brown-light);
+    border-radius: 8px;
+    background: var(--mauve-light);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.level-btn:hover,
+.level-btn:focus-visible {
+    background: var(--mauve-bg);
+    border-color: var(--brown-mid);
+}
+
+.level-btn:active {
+    transform: scale(0.98);
+}
+
+.level-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.level-desc {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.level-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.level-header h1 {
+    margin: 0;
+}
+
+/* ===== Game screen ===== */
+.game-screen {
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-screen.hidden,
+.level-screen.hidden {
+    display: none;
+}
+
+/* ===== Header ===== */
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 720px;
+}
+
+.header h1 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    margin: 0;
+    font-weight: 700;
+}
+
+.level-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--sage-bg);
+    color: var(--brown);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.moves {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* small centered logo inside the game header */
+.header-logo {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 150;
+}
+
+.header-logo img {
+    height: 36px;
+    object-fit: contain;
+}
+
+/* show header logo only when in-game */
+.in-game .header-logo {
+    display: block;
+}
+
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: var(--mauve-bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background: var(--mauve-light);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid var(--brown-light);
+}
+
+.btn-ghost:hover {
+    background: var(--isabeline);
+}
+
+.btn-large {
+    padding: 12px 24px;
+    font-size: 1rem;
+}
+
+/* ===== Board ===== */
+.game-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 200px;
+    padding: 8px 0;
+}
+
+.board {
+    display: grid;
+    gap: var(--tile-gap);
+    padding: 10px;
+    background: var(--board-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(74, 55, 40, 0.16);
+    width: min(92vw, 720px);
+    height: min(82vh, 720px);
+    max-width: 100%;
+    max-height: min(82vh, 720px);
+    aspect-ratio: 1;
+}
+
+/* Board size is set inline via grid-template-columns/rows and --size */
+.board.size-3 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.board.size-4 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.board.size-5 {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--tile-bg);
+    background-repeat: no-repeat;
+    border: 2px solid var(--tile-border);
+    border-radius: var(--tile-radius);
+    color: var(--tile-text);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.15s;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.tile:hover {
+    background-color: var(--sage-bg);
+    transform: scale(1.02);
+}
+
+.tile.tile-image:hover {
+    background-color: transparent;
+}
+
+.tile:active {
+    transform: scale(0.98);
+}
+
+.tile.empty {
+    background: var(--empty-bg);
+    border-color: transparent;
+    cursor: default;
+    box-shadow: none;
+}
+
+.tile.empty:hover {
+    background: var(--empty-bg);
+    transform: none;
+}
+
+/* Image tiles: no number, image slice only */
+.tile.tile-image .tile-num {
+    display: none;
+}
+
+/* ===== Win overlay ===== */
+.win-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(74, 55, 40, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+}
+
+.win-overlay.hidden {
+    display: none;
+}
+
+.win-box {
+    background: linear-gradient(145deg, var(--warm-white) 0%, var(--parchment) 100%);
+    border: 2px solid var(--brown-light);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    max-width: 360px;
+}
+
+.win-box h2 {
+    margin: 0 0 8px;
+    font-size: 1.75rem;
+    color: var(--accent);
+}
+
+.win-box p {
+    margin: 0 0 24px;
+    opacity: 0.9;
+}
+
+.win-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ===== Mobile: keep board large, use most of viewport ===== */
+@media (max-width: 600px) {
+    .header {
+        max-width: 100%;
+    }
+
+    .header-actions {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-end;
+    }
+
+    .board {
+        width: min(96vw, 420px);
+        height: min(78vh, 96vw, 420px);
+        max-height: min(78vh, 96vw, 420px);
+        padding: 6px;
+    }
+
+    .tile.tile-image .tile-num {
+        display: none;
+    }
+}
