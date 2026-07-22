@@ -102,22 +102,6 @@ const bgmAudio = new Audio('./BGM.mp3');
         $("#winOverlay").classList.add("hidden");
     }
 
-    function playBgm() {
-        if (bgmStarted) return;
-        bgmStarted = true;
-        bgmAudio.currentTime = 0;
-        const playPromise = bgmAudio.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(err => console.warn('bgm play failed', err));
-        }
-    }
-    playBgm()
-    function tryStartBgmOnInteraction() {
-        if (bgmStarted) return;
-        playBgm();
-        window.removeEventListener('pointerdown', tryStartBgmOnInteraction);
-        window.removeEventListener('keydown', tryStartBgmOnInteraction);
-    }
 
     function playStartSound() {
         getStart.currentTime = 0;
@@ -147,6 +131,15 @@ const bgmAudio = new Audio('./BGM.mp3');
         if (playPromise !== undefined) {
             playPromise.catch(err => console.warn('win sound failed', err));
         }
+    }
+
+    function tryStartBgmOnInteraction() {
+        if (bgmStarted) return;
+        const playPromise = bgmAudio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => console.warn('BGM failed to start', err));
+        }
+        bgmStarted = true;
     }
 
     function isAdjacentToEmpty(index) {
@@ -242,7 +235,6 @@ const bgmAudio = new Audio('./BGM.mp3');
 
         $("#startButton").addEventListener("click", () => {
             playClickSound();
-            playBgm();
             startScreen.classList.add("hidden");
             levelScreen.classList.remove("hidden");
         });
@@ -264,6 +256,9 @@ const bgmAudio = new Audio('./BGM.mp3');
             playClickSound();
             startScreen.classList.add("hidden");
             goToLevelScreen();
+        });
+        $("#otherGameBtn").addEventListener("click", () => {
+            window.location.href = "https://mmr-nidjae-maze.netlify.app/";
         });
     });
 
