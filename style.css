@@ -53,13 +53,39 @@ body {
     display: block;
     object-fit: contain;
     pointer-events: none;
-    height: 88px;
+    height: 200px;
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* hide the top-level wrapper logo while inside the game screen */
+
 .in-game .wrapper>.logo {
     display: none !important;
+}
+
+#start-btn {
+    margin-top: 12vh;
+}
+
+#startButton {
+    padding: 10px 50px;
+    border: 2px solid var(--brown-light);
+    border-radius: 8px;
+    background: var(--mauve-light);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#startButton:hover {
+    background: var(--mauve-bg);
+    border-color: var(--brown-mid);
 }
 
 /* ===== Level screen ===== */
@@ -150,6 +176,7 @@ body {
     align-items: center;
 }
 
+.startscreen.hidden,
 .game-screen.hidden,
 .level-screen.hidden {
     display: none;
@@ -159,10 +186,18 @@ body {
 .header {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     width: 100%;
     max-width: 720px;
+}
+
+.header h1,
+.header span,
+.header div {
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .header h1 {
@@ -180,6 +215,23 @@ body {
     font-weight: 600;
 }
 
+.in-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.ingame-logo img {
+    padding-top: 8px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+    height: 88px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
 .moves {
     font-size: 0.95rem;
     font-weight: 600;
@@ -189,8 +241,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    margin-left: auto;
+    gap: 10px;
+    /* margin-left: auto; */
 }
 
 /* small centered logo inside the game header */
