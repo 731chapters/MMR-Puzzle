@@ -230,26 +230,29 @@ const bgmAudio = new Audio('./BGM.mp3');
     document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('pointerdown', tryStartBgmOnInteraction);
         window.addEventListener('keydown', tryStartBgmOnInteraction);
-        $$(".level-btn").forEach((btn) => {
+        $("#startButton").addEventListener("click", () => {
+            playClickSound();
+            $(".startscreen").classList.add("hidden");
+            $("#levelScreen").classList.remove("hidden");
+        });
+
+        $$(".level-btn[data-level]").forEach((btn) => {
             btn.addEventListener("click", () => startGame(btn.dataset.level));
         });
         $("#newGameBtn").addEventListener("click", startNewGame);
-        $("#changeLevelBtn").addEventListener("click", goToLevelScreen);
+        $("#changeLevelBtn").addEventListener("click", () => {
+            $(".startscreen").classList.add("hidden");
+            goToLevelScreen();
+        });
         $("#playAgainBtn").addEventListener("click", () => {
             $("#winOverlay").classList.add("hidden");
-
             startNewGame();
         });
         $("#changeLevelFromWinBtn").addEventListener("click", () => {
             $("#winOverlay").classList.add("hidden");
             playClickSound();
+            $(".startscreen").classList.add("hidden");
             goToLevelScreen();
-        });
-        $("#helpBtnLevel").addEventListener("click", showHelp);
-        $("#helpBtnGame").addEventListener("click", showHelp);
-        $("#helpClose").addEventListener("click", hideHelp);
-        $("#helpOverlay").addEventListener("click", (e) => {
-            if (e.target.id === "helpOverlay") hideHelp();
         });
     });
 
