@@ -11,7 +11,7 @@ const bgmAudio = new Audio('./BGM.mp3');
 
 
     const clickAudio = new Audio('./click.mp3');
-    getStart.volume = 1.0;
+    clickAudio.volume = 1.0;
 
     const moving = new Audio('./moving.mp3');
     moving.volume = 0.3;
@@ -111,7 +111,7 @@ const bgmAudio = new Audio('./BGM.mp3');
             playPromise.catch(err => console.warn('bgm play failed', err));
         }
     }
-
+    playBgm()
     function tryStartBgmOnInteraction() {
         if (bgmStarted) return;
         playBgm();
@@ -228,12 +228,23 @@ const bgmAudio = new Audio('./BGM.mp3');
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        window.addEventListener('pointerdown', tryStartBgmOnInteraction);
-        window.addEventListener('keydown', tryStartBgmOnInteraction);
+        window.addEventListener('pointerdown', tryStartBgmOnInteraction, { once: true });
+        window.addEventListener('touchstart', tryStartBgmOnInteraction, { once: true });
+        window.addEventListener('keydown', tryStartBgmOnInteraction, { once: true });
+
+        const startScreen = $(".startscreen");
+        const levelScreen = $("#levelScreen");
+        const gameScreen = $("#gameScreen");
+
+        startScreen.classList.remove("hidden");
+        levelScreen.classList.add("hidden");
+        gameScreen.classList.add("hidden");
+
         $("#startButton").addEventListener("click", () => {
             playClickSound();
-            $(".startscreen").classList.add("hidden");
-            $("#levelScreen").classList.remove("hidden");
+            playBgm();
+            startScreen.classList.add("hidden");
+            levelScreen.classList.remove("hidden");
         });
 
         $$(".level-btn[data-level]").forEach((btn) => {
@@ -241,7 +252,7 @@ const bgmAudio = new Audio('./BGM.mp3');
         });
         $("#newGameBtn").addEventListener("click", startNewGame);
         $("#changeLevelBtn").addEventListener("click", () => {
-            $(".startscreen").classList.add("hidden");
+            startScreen.classList.add("hidden");
             goToLevelScreen();
         });
         $("#playAgainBtn").addEventListener("click", () => {
@@ -251,7 +262,7 @@ const bgmAudio = new Audio('./BGM.mp3');
         $("#changeLevelFromWinBtn").addEventListener("click", () => {
             $("#winOverlay").classList.add("hidden");
             playClickSound();
-            $(".startscreen").classList.add("hidden");
+            startScreen.classList.add("hidden");
             goToLevelScreen();
         });
     });
