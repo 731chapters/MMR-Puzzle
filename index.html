@@ -16,8 +16,13 @@
     <div class="wrapper">
         <!-- Level selection -->
         <div class="logo"><img src="logo.png" alt=""></div>
+        <div class="startscreen" id="start-btn">
+            <button type="button" class="startButton" id="startButton">
+                START
+            </button>
+        </div>
 
-        <div id="levelScreen" class="level-screen">
+        <div id="levelScreen" class="level-screen hidden">
             <div class="level-header">
                 <h1>Sliding Puzzle</h1>
             </div>
@@ -43,7 +48,7 @@
             <header class="header">
                 <h1>Sliding Puzzle</h1>
                 <span class="level-badge" id="levelBadge">Easy</span>
-                <div class="logo" aria-hidden="true">
+                <div class="ingame-logo" aria-hidden="true">
                     <img src="logo.png" alt="">
                 </div>
                 <div class="header-actions">
