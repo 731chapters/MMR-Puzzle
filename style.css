@@ -49,7 +49,7 @@ body {
 }
 
 .logo img {
-    padding-top: 8px;
+    margin-top: 5vh;
     display: block;
     object-fit: contain;
     pointer-events: none;
@@ -62,8 +62,16 @@ body {
     display: none !important;
 }
 
+.startscreen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #start-btn {
-    margin-top: 12vh;
+    margin-top: 5vh;
 }
 
 #startButton {
@@ -72,7 +80,6 @@ body {
     border-radius: 8px;
     background: var(--mauve-light);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
@@ -88,6 +95,13 @@ body {
     border-color: var(--brown-mid);
 }
 
+.level-header,
+.level-header-desc,
+.header {
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+}
+
 /* ===== Level screen ===== */
 .level-screen {
     display: flex;
@@ -99,7 +113,7 @@ body {
 
 .level-screen h1 {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
-    margin: 0 0 8px;
+    margin: 0px 0px 8px;
     font-weight: 700;
 }
 
@@ -201,7 +215,7 @@ body {
 }
 
 .header h1 {
-    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-size: clamp(1.05em, 4vw, 1rem);
     margin: 0;
     font-weight: 700;
 }
@@ -211,7 +225,7 @@ body {
     border-radius: 20px;
     background: var(--sage-bg);
     color: var(--brown);
-    font-size: 0.8rem;
+    font-size: 0.4rem;
     font-weight: 600;
 }
 
@@ -233,7 +247,7 @@ body {
 }
 
 .moves {
-    font-size: 0.95rem;
+    font-size: 0.6rem;
     font-weight: 600;
 }
 
@@ -273,7 +287,8 @@ body {
     background: var(--mauve-bg);
     color: var(--text);
     font-family: inherit;
-    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-size: 0.6rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
@@ -295,6 +310,10 @@ body {
 
 .btn-ghost:hover {
     background: var(--isabeline);
+}
+
+#changeLevelBtn:hover {
+    background: var(--brown-light);
 }
 
 .btn-large {
@@ -432,6 +451,44 @@ body {
     gap: 10px;
 }
 
+.footer {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.footer a:hover {
+    color: var(--brown-mid);
+}
+
+.sec-rule {
+    width: 150px;
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--sage-light), transparent);
+}
+
+.sec-rule-left {
+    width: 150px;
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to left, var(--sage-light), transparent);
+}
+
 /* ===== Mobile: keep board large, use most of viewport ===== */
 @media (max-width: 600px) {
     .header {
@@ -453,5 +510,20 @@ body {
 
     .tile.tile-image .tile-num {
         display: none;
+    }
+
+    .footer a {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 8px;
+    }
+
+    .sec-rule {
+        width: 50px;
+    }
+
+    .sec-rule-left {
+        width: 50px;
+        flex: 1;
     }
 }
